@@ -1,0 +1,7 @@
+dist
+node_modules
+package-lock.json
+img
+images-source
+src/assets/images
+public

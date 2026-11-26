@@ -1,0 +1,27 @@
+<!--
+  Menu do celular. É um <dialog>: o navegador já cuida de fechar com Esc,
+  prender o foco do teclado dentro do menu e escurecer o fundo.
+  Quem abre/fecha é o arquivo src/js/mobile-menu.js.
+-->
+<dialog class="mobile-menu" id="mobile-menu" aria-label="Menu" data-mobile-menu>
+  <div class="mobile-menu__panel">
+    <div class="mobile-menu__top">
+      <img class="mobile-menu__logo" src="/src/assets/images/logo-160.webp" width="160" height="159" alt="" />
+      <button class="mobile-menu__close" type="button" data-menu-close>
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+        <span class="visually-hidden">Fechar menu</span>
+      </button>
+    </div>
+
+    <nav class="mobile-menu__nav nav nav--vertical" aria-label="Menu do celular">
+      <!-- include: partials/nav-links.html -->
+    </nav>
+
+    <p class="mobile-menu__contact">
+      WhatsApp
+      <a href="{{ whatsappUrl }}" target="_blank" rel="noopener">{{ phoneDisplay }}</a>
+    </p>
+  </div>
+</dialog>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- Marca que o JavaScript está ativo (usado pelas animações e pelo menu ☰). -->
+    <script>
+      document.documentElement.classList.add('js');
+    </script>
+
+    <title>OXE Táxi Aéreo | Aviação executiva em Maceió</title>
+    <meta
+      name="description"
+      content="OXE Táxi Aéreo: aviação executiva com base em Maceió (AL). Voos personalizados com Seneca III, conforto, agilidade e atendimento próximo. Solicite sua cotação."
+    />
+    <meta
+      name="keywords"
+      content="táxi aéreo Maceió, táxi aéreo Alagoas, aviação executiva, voo executivo, fretamento aéreo, Seneca III, OXE Táxi Aéreo"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="canonical" href="https://www.voeoxe.com.br/" />
+
+    <!-- Ícones (gerados por `npm run images` dentro de /public). -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Como o link aparece quando é compartilhado (WhatsApp, Facebook, etc.). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="{{ siteName }}" />
+    <meta property="og:url" content="https://www.voeoxe.com.br/" />
+    <meta property="og:title" content="OXE Táxi Aéreo | Aviação executiva em Maceió" />
+    <meta
+      property="og:description"
+      content="Voos personalizados a partir de Maceió, com conforto, agilidade e atendimento próximo."
+    />
+    <meta property="og:image" content="https://www.voeoxe.com.br/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Seneca III da OXE Táxi Aéreo ao pôr do sol" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://www.voeoxe.com.br/og-image.jpg" />
+
+    <!-- Dados estruturados: ajudam o Google a entender quem é a empresa. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "{{ siteName }}",
+        "legalName": "{{ legalName }}",
+        "url": "https://www.voeoxe.com.br/",
+        "telephone": "{{ phoneTel }}",
+        "email": "{{ email }}",
+        "sameAs": ["{{ instagramUrl }}"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{ addressStreet }} - {{ addressDistrict }}",
+          "addressLocality": "{{ addressCity }}",
+          "addressRegion": "{{ addressState }}",
+          "postalCode": "{{ addressZip }}",
+          "addressCountry": "BR"
+        }
+      }
+    </script>
+
+    <script type="module" src="/src/main.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
+
+    <!-- include: partials/header.html -->
+    <!-- include: partials/compact-bar.html -->
+    <!-- include: partials/mobile-menu.html -->
+
+    <!-- Cada seção da página fica num arquivo em src/sections/, nesta ordem. -->
+    <main id="inicio">
+      <!-- include: sections/hero.html -->
+      <!-- include: sections/quote-form.html -->
+      <!-- include: sections/about.html -->
+      <!-- include: sections/why-oxe.html -->
+      <!-- include: sections/fleet.html -->
+      <!-- include: sections/executive.html -->
+      <!-- include: sections/destinations.html -->
+      <!-- include: sections/safety.html -->
+      <!-- include: sections/gallery.html -->
+      <!-- include: sections/faq.html -->
+      <!-- include: sections/location.html -->
+      <!-- include: sections/contact.html -->
+    </main>
+
+    <!-- include: partials/footer.html -->
+    <!-- include: partials/whatsapp-float.html -->
+    <!-- include: partials/lightbox.html -->
+  </body>
+</html>

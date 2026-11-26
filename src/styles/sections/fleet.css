@@ -1,0 +1,65 @@
+/* Seção Frota: fundo azul-marinho, números da aeronave e galeria de fotos. */
+
+.fleet {
+  background: var(--color-ink);
+  color: var(--color-dark-text);
+}
+
+.fleet h2 {
+  color: #fff;
+}
+
+.fleet .eyebrow {
+  color: var(--color-green);
+}
+
+.fleet .lead,
+.fleet .note {
+  color: var(--color-dark-muted);
+}
+
+/*
+ * Galeria: no desktop, a foto de destaque fica à esquerda ocupando 2 linhas.
+ * No celular: destaque em cima (largura toda) e as outras 4 em 2 colunas.
+ */
+.fleet-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+/* Cada foto é um botão (abre a foto ampliada). Zeramos o estilo padrão do botão. */
+.fleet-gallery__item {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.fleet-gallery__item img {
+  transition: transform 0.4s ease;
+}
+
+.fleet-gallery__item:hover img {
+  transform: scale(1.04);
+}
+
+.fleet-gallery__item--featured {
+  grid-row: span 2;
+  aspect-ratio: auto;
+}
+
+@media (max-width: 800px) {
+  .fleet-gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fleet-gallery__item--featured {
+    grid-row: auto;
+    grid-column: 1 / -1;
+    aspect-ratio: 4 / 3;
+  }
+}

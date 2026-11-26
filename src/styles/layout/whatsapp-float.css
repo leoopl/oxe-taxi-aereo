@@ -1,0 +1,50 @@
+/* Botão verde flutuante do WhatsApp, no canto inferior direito. */
+
+.whatsapp-float {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px 12px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-whatsapp);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+  transition:
+    background-color 0.2s,
+    opacity 0.25s,
+    transform 0.25s,
+    visibility 0.25s;
+}
+
+.whatsapp-float:hover {
+  background: var(--color-whatsapp-dark);
+}
+
+.whatsapp-float svg {
+  width: 30px;
+  height: 30px;
+}
+
+/* Escondido enquanto o formulário de cotação aparece na tela. */
+.whatsapp-float.is-hidden {
+  opacity: 0;
+  transform: translateY(16px);
+  visibility: hidden;
+}
+
+/* Celular pequeno: só o ícone. */
+@media (max-width: 520px) {
+  .whatsapp-float {
+    padding: 13px;
+  }
+
+  .whatsapp-float__label {
+    display: none;
+  }
+}

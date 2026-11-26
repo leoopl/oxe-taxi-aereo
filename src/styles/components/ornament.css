@@ -1,0 +1,41 @@
+/*
+ * Enfeite de canto (curvas azul e verde) no topo de algumas seções.
+ *
+ * Uso: <section class="section has-ornament has-ornament--left"> ...
+ *      ou has-ornament--right (o desenho é espelhado).
+ */
+
+.has-ornament {
+  position: relative;
+  overflow: hidden;
+}
+
+.has-ornament::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: clamp(84px, 20vw, 300px);
+  aspect-ratio: 640 / 849;
+  /* O navegador escolhe a versão 1x ou 2x conforme a tela. */
+  background: image-set(
+      url('../../assets/images/section-ornament-320.webp') 1x,
+      url('../../assets/images/section-ornament-640.webp') 2x
+    )
+    no-repeat center / contain;
+  pointer-events: none;
+}
+
+.has-ornament--left::before {
+  left: 0;
+}
+
+.has-ornament--right::before {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+/* O conteúdo fica por cima do enfeite. */
+.has-ornament > .container {
+  position: relative;
+  z-index: 1;
+}

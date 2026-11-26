@@ -1,0 +1,26 @@
+<!-- Cabeçalho grande do topo da página: logo em destaque + menu. -->
+<header class="site-header" id="topo" data-site-header>
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="#topo" aria-label="OXE Táxi Aéreo — voltar ao topo">
+      <img
+        src="/src/assets/images/logo-560.webp"
+        srcset="
+          /src/assets/images/logo-160.webp   160w,
+          /src/assets/images/logo-560.webp   560w,
+          /src/assets/images/logo-1071.webp 1071w
+        "
+        sizes="(max-width: 900px) 200px, 530px"
+        width="1071"
+        height="1067"
+        alt="OXE Táxi Aéreo"
+        fetchpriority="high"
+      />
+    </a>
+
+    <nav class="site-header__nav nav nav--large" aria-label="Principal">
+      <!-- include: partials/nav-links.html -->
+    </nav>
+
+    <!-- include: partials/menu-button.html -->
+  </div>
+</header>

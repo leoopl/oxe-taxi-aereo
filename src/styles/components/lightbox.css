@@ -1,0 +1,117 @@
+/* Foto ampliada (fundo escuro, foto no centro, setas nas laterais). */
+
+.lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+}
+
+.lightbox::backdrop {
+  background: rgba(8, 18, 33, 0.92);
+}
+
+html:has(.lightbox[open]) {
+  overflow: hidden;
+}
+
+.lightbox__figure {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  height: 100%;
+  margin: 0;
+  padding: 64px 72px;
+}
+
+.lightbox__image {
+  max-width: 100%;
+  max-height: calc(100dvh - 160px);
+  width: auto;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.lightbox__caption {
+  font-size: 0.95rem;
+  color: var(--color-dark-muted);
+  text-align: center;
+}
+
+.lightbox__button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  transition: background-color 0.2s;
+}
+
+.lightbox__button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox__button--close {
+  top: calc(14px + env(safe-area-inset-top, 0px));
+  right: 14px;
+}
+
+.lightbox__button--prev,
+.lightbox__button--next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox__button--prev {
+  left: 14px;
+}
+
+.lightbox__button--next {
+  right: 14px;
+}
+
+/* Celular: setas embaixo para não cobrir a foto. */
+@media (max-width: 700px) {
+  .lightbox__figure {
+    padding: 64px 12px 96px;
+  }
+
+  .lightbox__button--prev,
+  .lightbox__button--next {
+    top: auto;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    transform: none;
+  }
+
+  .lightbox__button--prev {
+    left: calc(50% - 64px);
+  }
+
+  .lightbox__button--next {
+    right: calc(50% - 64px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox[open] {
+    transition: opacity 0.25s ease;
+  }
+
+  @starting-style {
+    .lightbox[open] {
+      opacity: 0;
+    }
+  }
+}

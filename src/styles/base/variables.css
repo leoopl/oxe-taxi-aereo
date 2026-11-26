@@ -1,0 +1,60 @@
+/*
+ * Variáveis do design (cores, fontes, espaçamentos).
+ * Mude aqui e o site inteiro acompanha.
+ *
+ * Pontos de quebra usados no projeto (CSS ainda não aceita variável em @media):
+ *   ≤ 560px  celular pequeno
+ *   ≤ 700px  celular
+ *   ≤ 800px  colunas lado a lado viram uma coluna só
+ *   ≤ 900px  menu vira o botão ☰
+ *   ≥ 1100px links do menu no tamanho grande
+ */
+:root {
+  /* Cores da marca */
+  --color-ink: #0f233f; /* azul-marinho: textos e fundos escuros */
+  --color-blue: #1d4385; /* azul: subtítulos e destaques */
+  --color-green: #a7dc70; /* verde: botões e detalhes */
+  --color-green-light: #c0e898; /* verde ao passar o mouse */
+
+  /* Cores de apoio */
+  --color-bg: #f6f8f5; /* fundo padrão da página */
+  --color-surface: #ffffff; /* fundo de cartões e seções claras */
+  --color-muted: #4b5b70; /* textos secundários */
+  --color-line: #dbe3dc; /* bordas */
+  --color-placeholder: #6d7b8e;
+  --color-error: #b42318;
+
+  /* Seção escura (Frota) */
+  --color-dark-text: #dbe5f2;
+  --color-dark-muted: #bccbe0;
+
+  /* WhatsApp */
+  --color-whatsapp: #1faa59;
+  --color-whatsapp-dark: #178a47;
+
+  /* Fontes */
+  --font-heading: 'Manrope Variable', Manrope, 'Trebuchet MS', sans-serif;
+  --font-body: 'DM Sans Variable', 'DM Sans', system-ui, sans-serif;
+
+  /* Medidas */
+  --container-width: 1100px;
+  --gutter: 20px; /* espaço nas laterais da página */
+  --section-padding: 84px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --shadow-photo: 0 16px 38px rgba(20, 38, 74, 0.16);
+  --shadow-panel: 0 14px 40px rgba(15, 35, 63, 0.18);
+
+  /* Barra compacta do topo (aparece ao rolar) */
+  --compact-bar-height: 72px;
+
+  color-scheme: light;
+}
+
+@media (max-width: 700px) {
+  :root {
+    --compact-bar-height: 64px;
+  }
+}

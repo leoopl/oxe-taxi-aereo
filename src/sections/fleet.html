@@ -1,0 +1,112 @@
+<!--
+  Frota (fundo azul-marinho).
+  As fotos da galeria abrem ampliadas ao clicar (src/js/lightbox.js).
+-->
+<section class="section fleet" id="frota" aria-labelledby="frota-title">
+  <div class="container" data-reveal>
+    <p class="eyebrow">Nossa aeronave</p>
+    <h2 id="frota-title">Seneca III</h2>
+    <p class="lead">
+      Bimotor com motores Continental turboalimentados, ideal para voos regionais com conforto.
+    </p>
+
+    <div class="specs">
+      <div class="specs__item">
+        <strong>319 km/h</strong>
+        <span>Velocidade de cruzeiro</span>
+      </div>
+      <div class="specs__item">
+        <strong>1.158 km</strong>
+        <span>Alcance de voo</span>
+      </div>
+      <div class="specs__item">
+        <strong>Até 4 passageiros</strong>
+        <span>Capacidade máxima</span>
+      </div>
+    </div>
+
+    <ul class="ticks">
+      <li>Modelo Seneca III (EMB-810D)</li>
+      <li>Interior com assentos em couro e mesa</li>
+    </ul>
+    <p class="note">Passageiros e bagagem dependem do peso de cada voo e das condições da operação.</p>
+
+    <div class="fleet-gallery" data-lightbox-gallery>
+      <button
+        class="fleet-gallery__item fleet-gallery__item--featured photo"
+        type="button"
+        aria-haspopup="dialog"
+        data-lightbox-item
+      >
+        <img
+          src="/src/assets/images/fleet-cabin-table-640.webp"
+          srcset="
+            /src/assets/images/fleet-cabin-table-640.webp   640w,
+            /src/assets/images/fleet-cabin-table-1280.webp 1280w
+          "
+          sizes="(max-width: 800px) calc(100vw - 40px), 520px"
+          width="1280"
+          height="960"
+          alt="Interior da cabine com assentos em couro e mesa de madeira"
+          loading="lazy"
+        />
+      </button>
+      <button class="fleet-gallery__item photo" type="button" aria-haspopup="dialog" data-lightbox-item>
+        <img
+          src="/src/assets/images/fleet-apron-640.webp"
+          srcset="
+            /src/assets/images/fleet-apron-640.webp   640w,
+            /src/assets/images/fleet-apron-1280.webp 1280w
+          "
+          sizes="(max-width: 800px) 50vw, 260px"
+          width="1280"
+          height="960"
+          alt="Seneca III PT-VAT no pátio"
+          loading="lazy"
+        />
+      </button>
+      <button class="fleet-gallery__item photo" type="button" aria-haspopup="dialog" data-lightbox-item>
+        <img
+          src="/src/assets/images/fleet-panel-sunset-640.webp"
+          srcset="
+            /src/assets/images/fleet-panel-sunset-640.webp 640w,
+            /src/assets/images/fleet-panel-sunset-960.webp 960w
+          "
+          sizes="(max-width: 800px) 50vw, 260px"
+          width="960"
+          height="1280"
+          alt="Painel da aeronave em voo ao entardecer"
+          loading="lazy"
+        />
+      </button>
+      <button class="fleet-gallery__item photo" type="button" aria-haspopup="dialog" data-lightbox-item>
+        <img
+          src="/src/assets/images/fleet-cabin-seats-640.webp"
+          srcset="
+            /src/assets/images/fleet-cabin-seats-640.webp   640w,
+            /src/assets/images/fleet-cabin-seats-1280.webp 1280w
+          "
+          sizes="(max-width: 800px) 50vw, 260px"
+          width="1280"
+          height="960"
+          alt="Cabine com assentos em couro"
+          loading="lazy"
+        />
+      </button>
+      <button class="fleet-gallery__item photo" type="button" aria-haspopup="dialog" data-lightbox-item>
+        <img
+          src="/src/assets/images/fleet-front-sunset-640.webp"
+          srcset="
+            /src/assets/images/fleet-front-sunset-640.webp   640w,
+            /src/assets/images/fleet-front-sunset-1280.webp 1280w
+          "
+          sizes="(max-width: 800px) 50vw, 260px"
+          width="1280"
+          height="960"
+          alt="Vista frontal do Seneca III ao entardecer"
+          loading="lazy"
+        />
+      </button>
+    </div>
+  </div>
+</section>

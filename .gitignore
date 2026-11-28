@@ -1,7 +1,6 @@
-node_modules/
-dist/
-.superpowers/
-*.log
+# Fotos originais do WhatsApp (as versões usadas no site ficam em images/)
+img/
+
+# Arquivos criados pelo sistema operacional
 .DS_Store
 Thumbs.db
-img/

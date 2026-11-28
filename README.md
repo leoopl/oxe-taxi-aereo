@@ -1,112 +1,88 @@
 # OXE Táxi Aéreo — Landing page
 
-Site institucional da **OXE Táxi Aéreo** (Maceió/AL), feito com [Vite](https://vite.dev) e
-JavaScript puro (sem framework).
+Site institucional da **OXE Táxi Aéreo** (Maceió/AL), feito só com **HTML, CSS e JavaScript**.
+Não precisa instalar nada: sem Node, sem `npm install`, sem etapa de build.
 
-## Requisitos
+## Como abrir o site no computador
 
-- [Node.js](https://nodejs.org) 20.19 ou mais novo
+- **Jeito mais simples:** dê dois cliques no `index.html`. Ele abre no navegador.
+- **Com atualização automática (recomendado):** no VS Code, instale a extensão **Live Server**,
+  clique com o botão direito no `index.html` → **Open with Live Server**. A página recarrega
+  sozinha sempre que você salva um arquivo.
 
-## Comandos
+## Como publicar
 
-```bash
-npm install       # instala as dependências (só na primeira vez)
-npm run dev       # abre o site em http://localhost:5173 e atualiza sozinho ao salvar
-npm run build     # gera a versão final na pasta dist/ (é ela que vai para a hospedagem)
-npm run preview   # abre a versão final (dist/) para conferir antes de publicar
-npm test          # roda os testes automáticos
-npm run lint      # procura erros comuns no JavaScript
-npm run format    # arruma a formatação de todos os arquivos
-npm run images    # gera as imagens otimizadas (veja "Como trocar ou adicionar uma foto")
-```
-
-## Estrutura de pastas
+Envie estes arquivos e pastas para a hospedagem (Hostinger, Netlify, GitHub Pages etc.), do jeito
+que estão:
 
 ```
-index.html                 ← "sumário" da página: <head> + lista das seções, em ordem
-vite.config.js             ← configuração do Vite
-vite-plugins/
-  html-partials.js         ← junta os arquivos HTML (explicado abaixo)
-scripts/
-  optimize-images.js       ← cria as versões leves das fotos (npm run images)
-images-source/             ← fotos ORIGINAIS (não vão para o site)
-public/                    ← arquivos copiados como estão: ícones, imagem de compartilhamento
-src/
-  main.js                  ← ponto de entrada: carrega fontes, CSS e cada comportamento
-  data/site.js             ← telefone, e-mail, endereço, mensagem do WhatsApp...
-  partials/                ← pedaços que se repetem ou ficam fora das seções
-  │ header.html              cabeçalho grande (logo + menu)
-  │ compact-bar.html         barra que aparece no topo ao rolar
-  │ nav-links.html           links do menu (usados em 3 lugares)
-  │ menu-button.html         botão ☰
-  │ mobile-menu.html         menu do celular
-  │ footer.html              rodapé
-  │ whatsapp-float.html      botão verde flutuante
-  │ lightbox.html            foto ampliada da galeria
-  sections/                ← uma seção da página por arquivo
-  │ hero.html, quote-form.html, about.html, why-oxe.html, fleet.html,
-  │ executive.html, destinations.html, safety.html, gallery.html,
-  │ faq.html, location.html, contact.html
-  styles/
-  │ main.css               ← só importa os outros arquivos, na ordem
-  │ base/                    variáveis (cores, fontes), reset, textos, layout
-  │ components/              peças reutilizáveis: botão, cartão, foto, FAQ...
-  │ layout/                  cabeçalho, barra compacta, menu, rodapé...
-  │ sections/                estilos específicos de cada seção
-  js/                      ← um arquivo por comportamento (cada um exporta initAlgo())
-  │ compact-bar.js           mostra a barra do topo ao rolar
-  │ mobile-menu.js           abre/fecha o menu do celular
-  │ scroll-spy.js            destaca no menu a seção que está na tela
-  │ quote-form.js            valida o formulário e abre o WhatsApp
-  │ lightbox.js              galeria com foto ampliada
-  │ reveal.js                animação de entrada dos blocos
-  │ whatsapp-float.js        esconde o botão flutuante perto do formulário
-  │ current-year.js          ano do rodapé
-  assets/images/           ← fotos otimizadas (geradas por npm run images)
-tests/                     ← testes automáticos (Vitest)
+index.html   css/   js/   images/   fonts/   favicon-32.png   apple-touch-icon.png   og-image.jpg
 ```
 
-## Como o HTML é montado
+O site também funciona dentro de uma subpasta (ex.: `meusite.com.br/oxe/`).
 
-O `index.html` não tem o conteúdo das seções; ele tem comentários como este:
+> **Dica — GitHub Pages:** no repositório do GitHub, vá em **Settings → Pages**, escolha
+> **Deploy from a branch**, branch `main`, pasta `/ (root)`. Em alguns minutos o site fica no ar.
 
-```html
-<!-- include: sections/hero.html -->
+## Estrutura
+
+```
+index.html            ← a página inteira, dividida por comentários grandes (CABEÇALHO, HERO...)
+css/styles.css        ← todos os estilos, com um sumário numerado no topo
+js/script.js          ← todos os comportamentos, uma função por recurso, com sumário no topo
+images/               ← fotos em WebP, já otimizadas (cada foto em 2 tamanhos)
+fonts/                ← fontes Manrope (títulos) e DM Sans (textos)
+favicon-32.png        ← ícone da aba do navegador
+apple-touch-icon.png  ← ícone quando o site é salvo na tela inicial do celular
+og-image.jpg          ← imagem que aparece quando o link é compartilhado
+docs/                 ← documentos de planejamento (não vão para o site)
 ```
 
-O plugin `vite-plugins/html-partials.js` troca cada um desses comentários pelo conteúdo do
-arquivo (o caminho parte da pasta `src/`). O resultado é **uma página HTML normal**: o Google
-lê tudo e nada depende de JavaScript para aparecer.
+Para achar algo rápido, use **Ctrl+F**:
 
-Dentro dos arquivos HTML, `{{ nome }}` é trocado por um valor de `src/data/site.js`:
-
-```html
-<a href="{{ whatsappUrl }}">{{ phoneDisplay }}</a>
-<!-- vira -->
-<a href="https://wa.me/5582991166258?text=...">(82) 99116-6258</a>
-```
-
-Se você usar um `{{ nome }}` que não existe, o `npm run dev` mostra um erro dizendo qual é.
+- no `index.html`, procure o nome da seção em maiúsculas (ex.: `FROTA`);
+- no `css/styles.css`, procure o número e o nome da parte (ex.: `17. Cabeçalho`);
+- no `js/script.js`, procure o nome da função (ex.: `initQuoteForm`).
 
 ## Tarefas comuns
 
-### Trocar telefone, e-mail ou a mensagem do WhatsApp
+### Trocar telefone ou e-mail
 
-Edite **só** `src/data/site.js`. Todos os botões, o rodapé, os contatos e o formulário usam os
-dados de lá.
+Os dados aparecem várias vezes na página. Use **Localizar e substituir em todos os arquivos**
+(VS Code: **Ctrl+Shift+H**):
+
+| O quê                               | Procure por              |
+| ----------------------------------- | ------------------------ |
+| Número do WhatsApp (links e script) | `5582991166258`          |
+| Telefone como aparece no texto      | `(82) 99116-6258`        |
+| E-mail                              | `oxetaxiaereo@gmail.com` |
+
+O número também está no topo do `js/script.js` (`WHATSAPP_PHONE`), usado pelo formulário —
+a substituição em todos os arquivos já pega esse lugar.
+
+### Trocar a mensagem pronta do WhatsApp
+
+Nos links, a mensagem vem "codificada" depois de `?text=` (ex.: `Ol%C3%A1!%20Gostaria...`).
+Para gerar a nova:
+
+1. Abra qualquer página no navegador, aperte **F12** e vá na aba **Console**.
+2. Digite `encodeURIComponent('Sua nova mensagem aqui')` e aperte Enter.
+3. Copie o resultado e troque o texto depois de `?text=` em todos os links (Ctrl+Shift+H).
+
+A mensagem do **formulário de cotação** fica na função `buildQuoteMessage`, no `js/script.js`.
 
 ### Trocar ou adicionar uma foto
 
-1. Coloque a foto original em `images-source/` com um nome descritivo (ex.: `fleet-wing.jpeg`).
-2. Adicione uma linha na lista `IMAGES` em `scripts/optimize-images.js`:
-   `{ file: 'fleet-wing.jpeg', widths: PHOTO_WIDTHS },`
-3. Rode `npm run images`. Serão criadas `src/assets/images/fleet-wing-640.webp` e
-   `fleet-wing-1280.webp` (o número é a largura real em pixels).
-4. Use no HTML (veja exemplos em `src/sections/about.html`):
+1. Abra a foto em [squoosh.app](https://squoosh.app), escolha o formato **WebP**, qualidade
+   **75**, e salve duas versões: uma com **640 px** e outra com **1280 px** de largura.
+2. Coloque as duas em `images/` com nomes descritivos, ex.: `fleet-wing-640.webp` e
+   `fleet-wing-1280.webp`.
+3. Use no `index.html` (copie o modelo de uma foto parecida):
+
    ```html
    <img
-     src="/src/assets/images/fleet-wing-640.webp"
-     srcset="/src/assets/images/fleet-wing-640.webp 640w, /src/assets/images/fleet-wing-1280.webp 1280w"
+     src="images/fleet-wing-640.webp"
+     srcset="images/fleet-wing-640.webp 640w, images/fleet-wing-1280.webp 1280w"
      sizes="(max-width: 800px) calc(100vw - 40px), 508px"
      width="1280"
      height="960"
@@ -114,21 +90,34 @@ dados de lá.
      loading="lazy"
    />
    ```
-   - `srcset` lista os tamanhos; `sizes` diz o tamanho que a foto ocupa na tela. Com isso o
-     navegador baixa só a versão necessária (celular baixa a pequena).
-   - `width`/`height` são as proporções da foto: evitam que a página "pule" enquanto carrega.
 
-### Adicionar uma seção
-
-1. Crie `src/sections/minha-secao.html` (copie uma seção parecida como modelo).
-2. Inclua no `index.html`, na posição desejada: `<!-- include: sections/minha-secao.html -->`.
-3. Se precisar de estilo próprio, crie `src/styles/sections/minha-secao.css` e importe no
-   `src/styles/main.css`.
-4. Para aparecer no menu, adicione o link em `src/partials/nav-links.html`.
+   - `srcset` lista os tamanhos; `sizes` diz quanto a foto ocupa na tela. Com isso o navegador
+     baixa só a versão necessária (o celular baixa a pequena).
+   - `width`/`height` são o tamanho da foto grande: evitam que a página "pule" enquanto carrega.
+   - Sempre use caminhos **sem barra no começo** (`images/...`, não `/images/...`).
 
 ### Mudar cores ou fontes
 
-Tudo está em `src/styles/base/variables.css`.
+No `css/styles.css`, parte **2. Variáveis**. Mudando ali, o site inteiro acompanha.
+
+### Adicionar uma seção
+
+1. No `index.html`, copie uma seção parecida (do comentário grande até o `</section>`) e cole na
+   posição desejada. Troque o `id` e os textos.
+2. Se precisar de estilo próprio, adicione uma nova parte numerada no fim do `css/styles.css`
+   (e no sumário do topo).
+3. Para aparecer no menu, adicione o link nas **3 listas de links** do `index.html` (cabeçalho,
+   barra compacta e menu do celular).
+
+### Depois de mudar o CSS ou o JS: aumente a versão
+
+O navegador dos visitantes guarda o CSS e o JS por um tempo. Para ele baixar a versão nova,
+aumente o número no `index.html` sempre que publicar uma mudança nesses arquivos:
+
+```text
+href="css/styles.css?v=1"   →   href="css/styles.css?v=2"
+src="js/script.js?v=1"      →   src="js/script.js?v=2"
+```
 
 ## Convenções do código
 
@@ -140,10 +129,8 @@ Tudo está em `src/styles/base/variables.css`.
 - **Animações** respeitam a opção "reduzir movimento" do sistema do usuário.
 - Comentários em português; nomes de código em inglês.
 
-## Publicação
+## Formatação automática (opcional)
 
-Rode `npm run build` e envie o conteúdo da pasta `dist/` para a hospedagem (qualquer
-hospedagem de site estático serve: Netlify, Vercel, Hostinger, etc.).
-
-A imagem de compartilhamento (`og:image`) usa o endereço `https://www.voeoxe.com.br/og-image.jpg`;
-ela só aparece nas redes depois que o site estiver publicado nesse domínio.
+Os arquivos `.editorconfig` e `.prettierrc.json` são lidos pelo VS Code. Com a extensão
+**Prettier** instalada e "Format on Save" ligado, o código fica sempre no mesmo padrão — não
+precisa instalar nada no projeto.

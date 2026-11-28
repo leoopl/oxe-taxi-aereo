@@ -1,0 +1,1630 @@
+/*
+ * OXE Táxi Aéreo — todos os estilos do site.
+ *
+ * O arquivo é dividido em partes numeradas. Para pular para uma parte,
+ * use Ctrl+F com o número e o nome (ex.: "17. Cabeçalho").
+ * A ordem importa: regras de baixo podem sobrescrever as de cima.
+ *
+ *  1. Fontes
+ *  2. Variáveis (cores, fontes, medidas)
+ *  3. Reset (ajustes básicos)
+ *  4. Textos
+ *  5. Estrutura da página (container, seções, colunas)
+ *  6. Botões
+ *  7. Fotos
+ *  8. Cartões
+ *  9. Números da aeronave
+ * 10. Lista com losango
+ * 11. Etiquetas de destinos
+ * 12. Perguntas frequentes
+ * 13. Enfeite de canto das seções
+ * 14. Animação de entrada
+ * 15. Foto ampliada (lightbox)
+ * 16. Menu
+ * 17. Cabeçalho
+ * 18. Barra compacta
+ * 19. Menu do celular
+ * 20. Rodapé
+ * 21. Botão flutuante do WhatsApp
+ * 22. Seção: hero
+ * 23. Seção: formulário de cotação
+ * 24. Seção: frota
+ * 25. Seção: galeria e Instagram
+ * 26. Seção: onde estamos
+ * 27. Seção: contato
+ */
+
+/* ======================================================================
+   1. Fontes
+   ====================================================================== */
+
+/* As fontes ficam na pasta fonts/ (sem depender do Google Fonts).
+   São fontes "variáveis": um único arquivo tem todos os pesos (negrito etc.). */
+@font-face {
+  font-family: 'Manrope';
+  src: url('../fonts/manrope.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../fonts/dm-sans.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ======================================================================
+   2. Variáveis (cores, fontes, medidas)
+   ====================================================================== */
+
+/*
+ * Variáveis do design (cores, fontes, espaçamentos).
+ * Mude aqui e o site inteiro acompanha.
+ *
+ * Pontos de quebra usados no projeto (CSS ainda não aceita variável em @media):
+ *   ≤ 560px  celular pequeno
+ *   ≤ 700px  celular
+ *   ≤ 800px  colunas lado a lado viram uma coluna só
+ *   ≤ 900px  menu vira o botão ☰
+ *   ≥ 1100px links do menu no tamanho grande
+ */
+:root {
+  /* Cores da marca */
+  --color-ink: #0f233f; /* azul-marinho: textos e fundos escuros */
+  --color-blue: #1d4385; /* azul: subtítulos e destaques */
+  --color-green: #a7dc70; /* verde: botões e detalhes */
+  --color-green-light: #c0e898; /* verde ao passar o mouse */
+
+  /* Cores de apoio */
+  --color-bg: #f6f8f5; /* fundo padrão da página */
+  --color-surface: #ffffff; /* fundo de cartões e seções claras */
+  --color-muted: #4b5b70; /* textos secundários */
+  --color-line: #dbe3dc; /* bordas */
+  --color-placeholder: #6d7b8e;
+  --color-error: #b42318;
+
+  /* Seção escura (Frota) */
+  --color-dark-text: #dbe5f2;
+  --color-dark-muted: #bccbe0;
+
+  /* WhatsApp */
+  --color-whatsapp: #1faa59;
+  --color-whatsapp-dark: #178a47;
+
+  /* Fontes */
+  --font-heading: 'Manrope', 'Trebuchet MS', sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  /* Medidas */
+  --container-width: 1100px;
+  --gutter: 20px; /* espaço nas laterais da página */
+  --section-padding: 84px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --shadow-photo: 0 16px 38px rgba(20, 38, 74, 0.16);
+  --shadow-panel: 0 14px 40px rgba(15, 35, 63, 0.18);
+
+  /* Barra compacta do topo (aparece ao rolar) */
+  --compact-bar-height: 72px;
+
+  color-scheme: light;
+}
+
+@media (max-width: 700px) {
+  :root {
+    --compact-bar-height: 64px;
+  }
+}
+
+/* ======================================================================
+   3. Reset (ajustes básicos)
+   ====================================================================== */
+
+/* Ajustes básicos para todos os navegadores se comportarem igual. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Ao clicar num link do menu, a seção para logo abaixo da barra compacta. */
+  scroll-padding-top: calc(var(--compact-bar-height) + 16px + env(safe-area-inset-top, 0px));
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Contorno de foco bem visível para quem navega pelo teclado. */
+:focus-visible {
+  outline: 3px solid var(--color-green);
+  outline-offset: 3px;
+}
+
+/* Quem pede "reduzir movimento" no sistema não vê animações. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ======================================================================
+   4. Textos
+   ====================================================================== */
+
+/* Textos: corpo, títulos e estilos de parágrafo reutilizáveis. */
+
+body {
+  font: 400 1.0625rem/1.7 var(--font-body);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+h2 {
+  margin-bottom: 14px;
+  font-size: clamp(1.8rem, 3.9vw, 2.6rem);
+  letter-spacing: -0.005em;
+}
+
+h3 {
+  margin-bottom: 6px;
+  font-size: 1.5rem;
+  color: var(--color-blue);
+}
+
+/* Texto pequeno em caixa alta acima do título ("A EXPERIÊNCIA OXE"). */
+.eyebrow {
+  margin: 0 0 10px;
+  font: 700 0.8rem var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+
+/* Parágrafo de introdução logo abaixo do título. */
+.lead {
+  max-width: 66ch;
+  margin: 0 0 30px;
+  color: var(--color-muted);
+}
+
+/* Observação em letra menor. */
+.note {
+  margin: 18px 0 0;
+  font-size: 0.92rem;
+  color: var(--color-muted);
+}
+
+/* ======================================================================
+   5. Estrutura da página (container, seções, colunas)
+   ====================================================================== */
+
+/* Estruturas de página reutilizáveis: container, seções e colunas. */
+
+/* Centraliza o conteúdo e limita a largura. */
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px));
+}
+
+/* Toda seção da página. */
+.section {
+  padding: var(--section-padding) 0;
+}
+
+/* Seção com fundo branco (alterna com o fundo padrão da página). */
+.section--tint {
+  background: var(--color-surface);
+}
+
+/* Duas colunas lado a lado (texto + foto). */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Esconde visualmente, mas leitores de tela ainda leem. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Link "Pular para o conteúdo": só aparece quando recebe foco pelo teclado. */
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-ink);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-150%);
+  transition: transform 0.2s;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ======================================================================
+   6. Botões
+   ====================================================================== */
+
+/* Botão principal (verde) e variação com contorno. Use em <a> ou <button>. */
+
+.btn {
+  display: inline-block;
+  padding: 14px 30px;
+  border: 2px solid var(--color-green);
+  border-radius: var(--radius-pill);
+  background: var(--color-green);
+  color: var(--color-ink);
+  font: 700 1.02rem var(--font-body);
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+
+.btn:hover {
+  background: var(--color-green-light);
+  border-color: var(--color-green-light);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Botão com contorno azul-marinho ("Abrir no Google Maps"). */
+.btn--outline {
+  background: transparent;
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.btn--outline:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #fff;
+}
+
+/* ======================================================================
+   7. Fotos
+   ====================================================================== */
+
+/* Moldura de foto com cantos arredondados e sombra. */
+
+.photo {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-photo);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Foto da seção Segurança: não passa de 460px de altura. */
+.photo--short img {
+  max-height: 460px;
+}
+
+/* ======================================================================
+   8. Cartões
+   ====================================================================== */
+
+/* Cartões brancos com borda verde em cima ("Por que voar com a OXE?"). */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 24px;
+  border: 1px solid var(--color-line);
+  border-top: 3px solid var(--color-green);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(15, 35, 63, 0.08);
+}
+
+.card p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-muted);
+}
+
+/* ======================================================================
+   9. Números da aeronave
+   ====================================================================== */
+
+/* Caixinhas com os números da aeronave (velocidade, alcance, capacidade). */
+
+.specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin: 6px 0 26px;
+}
+
+.specs__item {
+  padding: 16px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.specs__item strong {
+  display: block;
+  font: 800 1.55rem/1.15 var(--font-heading);
+  color: var(--color-blue);
+}
+
+.specs__item span {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+/* ======================================================================
+   10. Lista com losango
+   ====================================================================== */
+
+/* Lista com losango verde no lugar da bolinha. */
+
+.ticks {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+.ticks li {
+  position: relative;
+  padding-left: 26px;
+}
+
+.ticks li::before {
+  content: '';
+  position: absolute;
+  top: 0.62em;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  background: var(--color-green);
+  transform: rotate(45deg);
+}
+
+/* ======================================================================
+   11. Etiquetas de destinos
+   ====================================================================== */
+
+/* Etiquetas arredondadas (lista de destinos). */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: 6px 16px;
+  border: 1px solid var(--color-green);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: 0.95rem;
+}
+
+/* "Outros destinos sob consulta" em negrito. */
+.chips .chips__item--highlight {
+  font-weight: 700;
+}
+
+/* ======================================================================
+   12. Perguntas frequentes
+   ====================================================================== */
+
+/* Perguntas frequentes: cada item abre e fecha (<details> + <summary>). */
+
+.faq__item {
+  margin-bottom: 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  transition: border-color 0.2s;
+}
+
+.faq__item:hover,
+.faq__item[open] {
+  border-color: var(--color-green);
+}
+
+.faq__item summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  font: 700 1.05rem var(--font-body);
+  list-style: none;
+  cursor: pointer;
+}
+
+/* Esconde a setinha padrão do Safari. */
+.faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Sinal de + que vira – quando a pergunta está aberta. */
+.faq__item summary::after {
+  content: '+';
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--color-blue);
+}
+
+.faq__item[open] summary::after {
+  content: '–';
+}
+
+.faq__item p {
+  margin: 0;
+  padding: 0 20px 18px;
+  color: var(--color-muted);
+}
+
+/*
+ * Abertura suave. Só funciona em navegadores recentes; nos outros a
+ * resposta simplesmente aparece (sem quebrar nada).
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .faq {
+    interpolate-size: allow-keywords;
+  }
+
+  .faq__item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 0.3s ease,
+      content-visibility 0.3s allow-discrete;
+  }
+
+  .faq__item[open]::details-content {
+    block-size: auto;
+  }
+}
+
+/* ======================================================================
+   13. Enfeite de canto das seções
+   ====================================================================== */
+
+/*
+ * Enfeite de canto (curvas azul e verde) no topo de algumas seções.
+ *
+ * Uso: <section class="section has-ornament has-ornament--left"> ...
+ *      ou has-ornament--right (o desenho é espelhado).
+ */
+
+.has-ornament {
+  position: relative;
+  overflow: hidden;
+}
+
+.has-ornament::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: clamp(84px, 20vw, 300px);
+  aspect-ratio: 640 / 849;
+  /* O navegador escolhe a versão 1x ou 2x conforme a tela. */
+  background: image-set(
+      url('../images/section-ornament-320.webp') 1x,
+      url('../images/section-ornament-640.webp') 2x
+    )
+    no-repeat center / contain;
+  pointer-events: none;
+}
+
+.has-ornament--left::before {
+  left: 0;
+}
+
+.has-ornament--right::before {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+/* O conteúdo fica por cima do enfeite. */
+.has-ornament > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ======================================================================
+   14. Animação de entrada
+   ====================================================================== */
+
+/*
+ * Animação de entrada: o bloco sobe e aparece quando entra na tela.
+ * Quem controla é a função initReveal, em js/script.js.
+ *
+ * Só esconde o conteúdo quando o JavaScript está ativo (classe "js" no <html>).
+ * Assim, se o JS falhar, nada fica invisível.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+  }
+
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Na impressão tudo aparece, mesmo o que ainda não passou pela tela. */
+@media print {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ======================================================================
+   15. Foto ampliada (lightbox)
+   ====================================================================== */
+
+/* Foto ampliada (fundo escuro, foto no centro, setas nas laterais). */
+
+.lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+}
+
+.lightbox::backdrop {
+  background: rgba(8, 18, 33, 0.92);
+}
+
+html:has(.lightbox[open]) {
+  overflow: hidden;
+}
+
+.lightbox__figure {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  height: 100%;
+  margin: 0;
+  padding: 64px 72px;
+}
+
+.lightbox__image {
+  max-width: 100%;
+  max-height: calc(100dvh - 160px);
+  width: auto;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.lightbox__caption {
+  font-size: 0.95rem;
+  color: var(--color-dark-muted);
+  text-align: center;
+}
+
+.lightbox__button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  transition: background-color 0.2s;
+}
+
+.lightbox__button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox__button--close {
+  top: calc(14px + env(safe-area-inset-top, 0px));
+  right: 14px;
+}
+
+.lightbox__button--prev,
+.lightbox__button--next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox__button--prev {
+  left: 14px;
+}
+
+.lightbox__button--next {
+  right: 14px;
+}
+
+/* Celular: setas embaixo para não cobrir a foto. */
+@media (max-width: 700px) {
+  .lightbox__figure {
+    padding: 64px 12px 96px;
+  }
+
+  .lightbox__button--prev,
+  .lightbox__button--next {
+    top: auto;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    transform: none;
+  }
+
+  .lightbox__button--prev {
+    left: calc(50% - 64px);
+  }
+
+  .lightbox__button--next {
+    right: calc(50% - 64px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox[open] {
+    transition: opacity 0.25s ease;
+  }
+
+  @starting-style {
+    .lightbox[open] {
+      opacity: 0;
+    }
+  }
+}
+
+/* ======================================================================
+   16. Menu
+   ====================================================================== */
+
+/*
+ * Menu de navegação (os links ficam no index.html, repetidos em 3 lugares).
+ *   .nav            → em linha
+ *   .nav--large     → em linha, links grandes em telas largas (cabeçalho grande)
+ *   .nav--small     → em linha, menor (barra compacta)
+ *   .nav--vertical  → um embaixo do outro (menu do celular)
+ */
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__link {
+  display: block;
+  padding: 9px 13px;
+  border-radius: var(--radius-pill);
+  color: var(--color-ink);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+}
+
+.nav__link:hover {
+  color: var(--color-blue);
+}
+
+/* Link da seção que está na tela agora (controlado por initScrollSpy, em js/script.js). */
+.nav__link.is-active {
+  color: var(--color-blue);
+  background: rgba(167, 220, 112, 0.25);
+}
+
+/* Botão "Solicitar Cotação" dentro do menu. */
+.nav__link--cta,
+.nav__link--cta:hover {
+  margin-left: 6px;
+  padding: 12px 22px;
+  background: var(--color-ink);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.nav__link--cta:hover {
+  background: var(--color-blue);
+}
+
+/* Telas largas: links do cabeçalho grande no tamanho do site original. */
+@media (min-width: 1100px) {
+  .nav--large .nav__link {
+    font-size: 16pt;
+  }
+
+  .nav--large .nav__link--cta {
+    font-size: 1rem;
+  }
+}
+
+/* Versão menor, para a barra compacta. */
+.nav--small .nav__link {
+  padding: 8px 12px;
+  font-size: 0.95rem;
+}
+
+.nav--small .nav__link--cta {
+  padding: 10px 18px;
+  font-size: 0.92rem;
+}
+
+/* Versão vertical, para o menu do celular. */
+.nav--vertical .nav__list {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.nav--vertical .nav__link {
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  font-size: 1.15rem;
+}
+
+.nav--vertical .nav__link--cta {
+  margin: 12px 0 0;
+  text-align: center;
+}
+
+/* ======================================================================
+   17. Cabeçalho
+   ====================================================================== */
+
+/*
+ * Cabeçalho grande do topo: logo em destaque à esquerda e menu à direita.
+ * No celular: logo centralizado e botão ☰ no canto.
+ */
+
+.site-header {
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 8px 28px 8px 16px;
+}
+
+.site-header__brand {
+  /* Ocupa até 530px e encolhe se faltar espaço para o menu. */
+  flex: 0 1 530px;
+  min-width: 0;
+}
+
+.site-header__brand img {
+  width: 100%;
+}
+
+.site-header__nav {
+  flex: 0 0 auto;
+}
+
+/* Botão ☰ (o mesmo visual no cabeçalho e na barra compacta). */
+.menu-button {
+  display: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.menu-button:hover {
+  border-color: var(--color-ink);
+}
+
+/* Celular e tablet: menu vira o botão ☰. */
+@media (max-width: 900px) {
+  .site-header__inner {
+    position: relative;
+    justify-content: center;
+    padding: 12px 16px;
+  }
+
+  .site-header__brand {
+    flex: 0 0 auto;
+    width: min(52vw, 200px);
+  }
+
+  .site-header__nav {
+    display: none;
+  }
+
+  .menu-button {
+    display: grid;
+  }
+
+  .site-header .menu-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+}
+
+/*
+ * Sem JavaScript o botão ☰ não funciona, então mostramos os links
+ * normalmente (quebrando linha), como no site original.
+ */
+@media (max-width: 900px) {
+  html:not(.js) .site-header__inner {
+    flex-direction: column;
+  }
+
+  html:not(.js) .site-header__nav {
+    display: block;
+  }
+
+  html:not(.js) .site-header__nav .nav__list {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  html:not(.js) .menu-button {
+    display: none;
+  }
+}
+
+/* ======================================================================
+   18. Barra compacta
+   ====================================================================== */
+
+/*
+ * Barra compacta fixa no topo. Fica escondida (acima da tela) e desliza
+ * para baixo quando o cabeçalho grande sai da tela (classe .is-visible,
+ * colocada por initCompactBar, em js/script.js).
+ */
+
+.compact-bar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--color-line);
+  box-shadow: 0 6px 24px rgba(15, 35, 63, 0.08);
+  /* Escondida: fora da tela e invisível para teclado/leitor de tela. */
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition:
+    transform 0.3s ease,
+    visibility 0.3s;
+}
+
+.compact-bar.is-visible {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+@supports (backdrop-filter: blur(8px)) {
+  .compact-bar {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+  }
+}
+
+.compact-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--compact-bar-height);
+}
+
+.compact-bar__brand img {
+  width: 56px;
+  height: 56px;
+}
+
+@media (max-width: 900px) {
+  .compact-bar__nav {
+    display: none;
+  }
+
+  .compact-bar__brand img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* ======================================================================
+   19. Menu do celular
+   ====================================================================== */
+
+/*
+ * Menu do celular: painel que desliza da direita.
+ * É um <dialog>, aberto com .showModal() em initMobileMenu (js/script.js).
+ */
+
+.mobile-menu {
+  /* O <dialog> vem centralizado por padrão; aqui ele vira um painel lateral. */
+  inset: 0 0 0 auto;
+  width: min(340px, 86vw);
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  box-shadow: -12px 0 40px rgba(15, 35, 63, 0.2);
+}
+
+/* Fundo escurecido atrás do menu. */
+.mobile-menu::backdrop {
+  background: rgba(15, 35, 63, 0.45);
+}
+
+/* Trava a rolagem da página enquanto o menu está aberto. */
+html:has(.mobile-menu[open]) {
+  overflow: hidden;
+}
+
+.mobile-menu__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 100%;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 20px calc(24px + env(safe-area-inset-bottom, 0px));
+}
+
+.mobile-menu__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-menu__logo {
+  width: 64px;
+  height: 64px;
+}
+
+.mobile-menu__close {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.mobile-menu__contact {
+  margin: auto 0 0;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+
+.mobile-menu__contact a {
+  display: block;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+/* Animação de entrada (navegadores que suportam @starting-style). */
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-menu[open] {
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-menu[open]::backdrop {
+    transition: opacity 0.3s ease;
+  }
+
+  /* @starting-style = "de onde a animação começa" quando o menu abre. */
+  @starting-style {
+    .mobile-menu[open] {
+      transform: translateX(100%);
+    }
+
+    .mobile-menu[open]::backdrop {
+      opacity: 0;
+    }
+  }
+}
+
+/* ======================================================================
+   20. Rodapé
+   ====================================================================== */
+
+/* Rodapé azul-marinho com logo e dados da empresa. */
+
+.site-footer {
+  padding: 44px 0 calc(50px + env(safe-area-inset-bottom, 0px));
+  background: var(--color-ink);
+  color: #e9edf5;
+  font-size: 0.95rem;
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px 40px;
+  align-items: center;
+}
+
+.site-footer__logo {
+  width: 120px;
+  height: 120px;
+  padding: 6px;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.site-footer p {
+  margin: 0 0 4px;
+}
+
+.site-footer b {
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ======================================================================
+   21. Botão flutuante do WhatsApp
+   ====================================================================== */
+
+/* Botão verde flutuante do WhatsApp, no canto inferior direito. */
+
+.whatsapp-float {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px 12px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-whatsapp);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+  transition:
+    background-color 0.2s,
+    opacity 0.25s,
+    transform 0.25s,
+    visibility 0.25s;
+}
+
+.whatsapp-float:hover {
+  background: var(--color-whatsapp-dark);
+}
+
+.whatsapp-float svg {
+  width: 30px;
+  height: 30px;
+}
+
+/* Escondido enquanto o formulário de cotação aparece na tela. */
+.whatsapp-float.is-hidden {
+  opacity: 0;
+  transform: translateY(16px);
+  visibility: hidden;
+}
+
+/* Celular pequeno: só o ícone. */
+@media (max-width: 520px) {
+  .whatsapp-float {
+    padding: 13px;
+  }
+
+  .whatsapp-float__label {
+    display: none;
+  }
+}
+
+/* ======================================================================
+   22. Seção: hero
+   ====================================================================== */
+
+/* Hero: foto de fundo com degradê azul por cima e texto em branco. */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: #14264a; /* cor que aparece enquanto a foto carrega */
+  color: #fff;
+}
+
+/* A foto ocupa todo o fundo do hero. */
+.hero__background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Degradê escuro da esquerda para a direita, para o texto ficar legível. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(15, 35, 63, 0.88) 0%,
+    rgba(15, 35, 63, 0.58) 55%,
+    rgba(15, 35, 63, 0.15) 100%
+  );
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  padding-top: 110px;
+  padding-bottom: 110px;
+}
+
+.hero h1 {
+  max-width: 16ch;
+  font-size: clamp(2.2rem, 5.6vw, 4rem);
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  max-width: 52ch;
+  margin: 20px 0;
+  font-size: 1.15rem;
+}
+
+@media (max-width: 700px) {
+  .hero__content {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  /* No celular o texto ocupa a largura toda: escurece a foto por igual. */
+  .hero::before {
+    background: rgba(15, 35, 63, 0.72);
+  }
+}
+
+/* ======================================================================
+   23. Seção: formulário de cotação
+   ====================================================================== */
+
+/*
+ * Formulário "Planeje seu voo": cartão branco que sobe por cima do fim do hero.
+ * Desktop: 4 campos + botão na mesma linha. Tablet: 2 colunas. Celular: 1 coluna.
+ */
+
+.quote {
+  position: relative;
+  z-index: 2;
+  margin-top: -58px; /* sobe por cima do hero */
+}
+
+.quote-form {
+  padding: 22px 24px 26px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-panel);
+}
+
+.quote-form__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin-bottom: 14px;
+}
+
+.quote-form__title {
+  margin: 0;
+  font-size: 1.55rem;
+  color: var(--color-ink);
+}
+
+.quote-form__subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+
+.quote-form__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  gap: 14px;
+  align-items: start;
+}
+
+.quote-form__field {
+  display: grid;
+  gap: 6px;
+}
+
+.quote-form label {
+  font: 700 0.9rem/1.7 var(--font-body);
+  color: var(--color-ink);
+}
+
+.quote-form input,
+.quote-form select {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font: 600 1rem var(--font-body);
+}
+
+.quote-form input::placeholder {
+  color: var(--color-placeholder);
+}
+
+.quote-form input:focus,
+.quote-form select:focus {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 1px;
+}
+
+/* Campo com erro: borda vermelha (o atributo é colocado por initQuoteForm, em js/script.js). */
+.quote-form [aria-invalid='true'] {
+  border-color: var(--color-error);
+  background: #fff6f5;
+}
+
+.quote-form__error {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-error);
+}
+
+/* Empurra o botão para baixo para alinhar com os campos (altura do rótulo + espaço). */
+.quote-form__actions {
+  padding-top: calc(0.9rem * 1.7 + 6px);
+}
+
+.quote-form__submit {
+  min-height: 48px;
+  padding: 13px 24px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .quote-form__fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quote-form__actions {
+    grid-column: 1 / -1;
+    padding-top: 0;
+  }
+
+  .quote-form__submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .quote {
+    margin-top: -36px;
+  }
+
+  .quote-form__fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ======================================================================
+   24. Seção: frota
+   ====================================================================== */
+
+/* Seção Frota: fundo azul-marinho, números da aeronave e galeria de fotos. */
+
+.fleet {
+  background: var(--color-ink);
+  color: var(--color-dark-text);
+}
+
+.fleet h2 {
+  color: #fff;
+}
+
+.fleet .eyebrow {
+  color: var(--color-green);
+}
+
+.fleet .lead,
+.fleet .note {
+  color: var(--color-dark-muted);
+}
+
+/*
+ * Galeria: no desktop, a foto de destaque fica à esquerda ocupando 2 linhas.
+ * No celular: destaque em cima (largura toda) e as outras 4 em 2 colunas.
+ */
+.fleet-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+/* Cada foto é um botão (abre a foto ampliada). Zeramos o estilo padrão do botão. */
+.fleet-gallery__item {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.fleet-gallery__item img {
+  transition: transform 0.4s ease;
+}
+
+.fleet-gallery__item:hover img {
+  transform: scale(1.04);
+}
+
+.fleet-gallery__item--featured {
+  grid-row: span 2;
+  aspect-ratio: auto;
+}
+
+@media (max-width: 800px) {
+  .fleet-gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fleet-gallery__item--featured {
+    grid-row: auto;
+    grid-column: 1 / -1;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ======================================================================
+   25. Seção: galeria e Instagram
+   ====================================================================== */
+
+/* Galeria e Instagram: ícone do Instagram + 4 fotos quadradas. */
+
+.instagram-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: var(--color-ink);
+  color: #fff;
+  transition: background-color 0.2s;
+}
+
+.instagram-icon:hover {
+  background: var(--color-blue);
+}
+
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.instagram-grid__item {
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.instagram-grid__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.instagram-grid__item:hover img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 700px) {
+  .instagram-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ======================================================================
+   26. Seção: onde estamos
+   ====================================================================== */
+
+/* Onde estamos: cartão com desenho de "mapa" e botão para o Google Maps. */
+
+.map-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 270px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #dfe9f7, #e3f1d3);
+}
+
+.map-card svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* O botão fica por cima do desenho. */
+.map-card .btn {
+  position: relative;
+}
+
+/* ======================================================================
+   27. Seção: contato
+   ====================================================================== */
+
+/* Fale com a OXE: lista de contatos. */
+
+.contact-list {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 26px;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-list strong {
+  display: inline-block;
+  min-width: 92px;
+  color: var(--color-blue);
+}
+
+.contact-list a {
+  text-underline-offset: 3px;
+}
+
+.contact-list a:hover {
+  color: var(--color-blue);
+}

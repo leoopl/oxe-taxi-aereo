@@ -21,14 +21,14 @@
     <meta name="theme-color" content="#ffffff" />
     <link rel="canonical" href="https://www.voeoxe.com.br/" />
 
-    <!-- Ícones (gerados por `npm run images` dentro de /public). -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Ícone da aba do navegador e da tela inicial do celular. -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
     <!-- Como o link aparece quando é compartilhado (WhatsApp, Facebook, etc.). -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:site_name" content="{{ siteName }}" />
+    <meta property="og:site_name" content="OXE Táxi Aéreo" />
     <meta property="og:url" content="https://www.voeoxe.com.br/" />
     <meta property="og:title" content="OXE Táxi Aéreo | Aviação executiva em Maceió" />
     <meta
@@ -47,51 +47,922 @@
       {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "{{ siteName }}",
-        "legalName": "{{ legalName }}",
+        "name": "OXE Táxi Aéreo",
+        "legalName": "OXE Táxi Aéreo LTDA",
         "url": "https://www.voeoxe.com.br/",
-        "telephone": "{{ phoneTel }}",
-        "email": "{{ email }}",
-        "sameAs": ["{{ instagramUrl }}"],
+        "telephone": "+5582991166258",
+        "email": "oxetaxiaereo@gmail.com",
+        "sameAs": ["https://www.instagram.com/oxetaxiaereo/"],
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "{{ addressStreet }} - {{ addressDistrict }}",
-          "addressLocality": "{{ addressCity }}",
-          "addressRegion": "{{ addressState }}",
-          "postalCode": "{{ addressZip }}",
+          "streetAddress": "Rua Itararé, 10 - Santa Lúcia",
+          "addressLocality": "Maceió",
+          "addressRegion": "AL",
+          "postalCode": "57082-020",
           "addressCountry": "BR"
         }
       }
     </script>
 
-    <script type="module" src="/src/main.js"></script>
+    <link rel="stylesheet" href="css/styles.css?v=1" />
+    <script src="js/script.js?v=1" defer></script>
   </head>
 
   <body>
+    <!--
+      COMO EDITAR: o telefone, o e-mail e o link do WhatsApp aparecem várias
+      vezes nesta página. Para trocar, use "Localizar e substituir" (Ctrl+H)
+      no editor. O número do WhatsApp também está no topo de js/script.js.
+    -->
     <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
 
-    <!-- include: partials/header.html -->
-    <!-- include: partials/compact-bar.html -->
-    <!-- include: partials/mobile-menu.html -->
+    <!-- ==================================================================
+         CABEÇALHO — logo grande + menu
+         ================================================================== -->
+    <header class="site-header" id="topo" data-site-header>
+      <div class="site-header__inner">
+        <a class="site-header__brand" href="#topo" aria-label="OXE Táxi Aéreo — voltar ao topo">
+          <img
+            src="images/logo-560.webp"
+            srcset="images/logo-160.webp 160w, images/logo-560.webp 560w, images/logo-1071.webp 1071w"
+            sizes="(max-width: 900px) 200px, 530px"
+            width="1071"
+            height="1067"
+            alt="OXE Táxi Aéreo"
+            fetchpriority="high"
+          />
+        </a>
 
-    <!-- Cada seção da página fica num arquivo em src/sections/, nesta ordem. -->
+        <nav class="site-header__nav nav nav--large" aria-label="Principal">
+          <!--
+            Links do menu. ATENÇÃO: esta mesma lista aparece 3 vezes na página
+            (aqui, na barra compacta e no menu do celular). Mudou uma, mude as três.
+          -->
+          <ul class="nav__list">
+            <li><a class="nav__link" href="#quem-somos">Quem somos</a></li>
+            <li><a class="nav__link" href="#frota">Frota</a></li>
+            <li><a class="nav__link" href="#destinos">Destinos</a></li>
+            <li><a class="nav__link" href="#seguranca">Segurança</a></li>
+            <li>
+              <a
+                class="nav__link nav__link--cta"
+                href="https://wa.me/5582991166258?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20t%C3%A1xi%20a%C3%A9reo%20com%20a%20OXE.%20Poderiam%20me%20fornecer%20mais%20informa%C3%A7%C3%B5es%3F"
+                target="_blank"
+                rel="noopener"
+              >
+                Solicitar Cotação
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Botão ☰ que abre o menu do celular. -->
+        <button
+          class="menu-button"
+          type="button"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          data-menu-open
+        >
+          <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+            <path
+              d="M4 7h16M4 12h16M4 17h16"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span class="visually-hidden">Abrir menu</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================================================================
+         BARRA COMPACTA — desliza no topo quando o cabeçalho sai da tela
+         (quem mostra/esconde: initCompactBar, em js/script.js)
+         ================================================================== -->
+    <div class="compact-bar" data-compact-bar>
+      <div class="compact-bar__inner container">
+        <a class="compact-bar__brand" href="#topo" aria-label="OXE Táxi Aéreo — voltar ao topo">
+          <img src="images/logo-160.webp" width="160" height="159" alt="" />
+        </a>
+
+        <nav class="compact-bar__nav nav nav--small" aria-label="Atalhos">
+          <!-- Mesma lista de links do cabeçalho (mantenha as três iguais). -->
+          <ul class="nav__list">
+            <li><a class="nav__link" href="#quem-somos">Quem somos</a></li>
+            <li><a class="nav__link" href="#frota">Frota</a></li>
+            <li><a class="nav__link" href="#destinos">Destinos</a></li>
+            <li><a class="nav__link" href="#seguranca">Segurança</a></li>
+            <li>
+              <a
+                class="nav__link nav__link--cta"
+                href="https://wa.me/5582991166258?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20t%C3%A1xi%20a%C3%A9reo%20com%20a%20OXE.%20Poderiam%20me%20fornecer%20mais%20informa%C3%A7%C3%B5es%3F"
+                target="_blank"
+                rel="noopener"
+              >
+                Solicitar Cotação
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Botão ☰ que abre o menu do celular. -->
+        <button
+          class="menu-button"
+          type="button"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          data-menu-open
+        >
+          <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+            <path
+              d="M4 7h16M4 12h16M4 17h16"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span class="visually-hidden">Abrir menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================================================================
+         MENU DO CELULAR — é um <dialog>: o navegador já fecha com Esc,
+         prende o foco do teclado e escurece o fundo
+         (quem abre/fecha: initMobileMenu, em js/script.js)
+         ================================================================== -->
+    <dialog class="mobile-menu" id="mobile-menu" aria-label="Menu" data-mobile-menu>
+      <div class="mobile-menu__panel">
+        <div class="mobile-menu__top">
+          <img class="mobile-menu__logo" src="images/logo-160.webp" width="160" height="159" alt="" />
+          <button class="mobile-menu__close" type="button" data-menu-close>
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+              <path
+                d="M6 6l12 12M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span class="visually-hidden">Fechar menu</span>
+          </button>
+        </div>
+
+        <nav class="mobile-menu__nav nav nav--vertical" aria-label="Menu do celular">
+          <!-- Mesma lista de links do cabeçalho (mantenha as três iguais). -->
+          <ul class="nav__list">
+            <li><a class="nav__link" href="#quem-somos">Quem somos</a></li>
+            <li><a class="nav__link" href="#frota">Frota</a></li>
+            <li><a class="nav__link" href="#destinos">Destinos</a></li>
+            <li><a class="nav__link" href="#seguranca">Segurança</a></li>
+            <li>
+              <a
+                class="nav__link nav__link--cta"
+                href="https://wa.me/5582991166258?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20t%C3%A1xi%20a%C3%A9reo%20com%20a%20OXE.%20Poderiam%20me%20fornecer%20mais%20informa%C3%A7%C3%B5es%3F"
+                target="_blank"
+                rel="noopener"
+              >
+                Solicitar Cotação
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <p class="mobile-menu__contact">
+          WhatsApp
+          <a
+            href="https://wa.me/5582991166258?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20t%C3%A1xi%20a%C3%A9reo%20com%20a%20OXE.%20Poderiam%20me%20fornecer%20mais%20informa%C3%A7%C3%B5es%3F"
+            target="_blank"
+            rel="noopener"
+          >
+            (82) 99116-6258
+          </a>
+        </p>
+      </div>
+    </dialog>
+
     <main id="inicio">
-      <!-- include: sections/hero.html -->
-      <!-- include: sections/quote-form.html -->
-      <!-- include: sections/about.html -->
-      <!-- include: sections/why-oxe.html -->
-      <!-- include: sections/fleet.html -->
-      <!-- include: sections/executive.html -->
-      <!-- include: sections/destinations.html -->
-      <!-- include: sections/safety.html -->
-      <!-- include: sections/gallery.html -->
-      <!-- include: sections/faq.html -->
-      <!-- include: sections/location.html -->
-      <!-- include: sections/contact.html -->
+      <!-- ==================================================================
+           HERO — foto de fundo, título principal e botão de cotação
+           ================================================================== -->
+      <section class="hero" aria-labelledby="hero-title">
+        <img
+          class="hero__background"
+          src="images/hero-1028.webp"
+          srcset="images/hero-640.webp 640w, images/hero-1028.webp 1028w"
+          sizes="100vw"
+          width="1028"
+          height="771"
+          alt=""
+        />
+        <div class="hero__content container">
+          <h1 id="hero-title">Seu tempo é valioso. Seu destino é a nossa prioridade.</h1>
+          <p>
+            Táxi aéreo executivo com conforto e agilidade. Decole de Maceió em um voo planejado para você.
+          </p>
+          <a
+            class="btn"
+            href="https://wa.me/5582991166258?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20t%C3%A1xi%20a%C3%A9reo%20com%20a%20OXE.%20Poderiam%20me%20fornecer%20mais%20informa%C3%A7%C3%B5es%3F"
+            target="_blank"
+            rel="noopener"
+          >
+            Solicitar Cotação
+          </a>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           FORMULÁRIO "Planeje seu voo" — ao enviar, abre o WhatsApp com a
+           mensagem pronta (validação e envio: initQuoteForm, em js/script.js)
+           ================================================================== -->
+      <div class="quote">
+        <div class="container">
+          <form class="quote-form" id="quote-form" aria-labelledby="quote-form-title" data-quote-form>
+            <div class="quote-form__header">
+              <h2 class="quote-form__title" id="quote-form-title">Planeje seu voo</h2>
+              <p class="quote-form__subtitle">Prepare o pedido e envie pelo WhatsApp.</p>
+            </div>
+
+            <div class="quote-form__fields">
+              <div class="quote-form__field">
+                <label for="quote-origin">Origem</label>
+                <input id="quote-origin" name="origin" value="Maceió, AL" required autocomplete="off" />
+                <p class="quote-form__error" id="quote-origin-error" hidden></p>
+              </div>
+
+              <div class="quote-form__field">
+                <label for="quote-destination">Destino</label>
+                <input
+                  id="quote-destination"
+                  name="destination"
+                  placeholder="Cidade ou aeroporto"
+                  required
+                  autocomplete="off"
+                />
+                <p class="quote-form__error" id="quote-destination-error" hidden></p>
+              </div>
+
+              <div class="quote-form__field">
+                <label for="quote-date">Data</label>
+                <input id="quote-date" name="date" type="date" />
+                <p class="quote-form__error" id="quote-date-error" hidden></p>
+              </div>
+
+              <div class="quote-form__field">
+                <label for="quote-passengers">Passageiros</label>
+                <select id="quote-passengers" name="passengers" required>
+                  <option value="" disabled selected>Selecione</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                </select>
+                <p class="quote-form__error" id="quote-passengers-error" hidden></p>
+              </div>
+
+              <div class="quote-form__actions">
+                <button class="btn quote-form__submit" type="submit">Solicitar Cotação</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           QUEM SOMOS (#quem-somos)
+           ================================================================== -->
+      <section
+        class="section has-ornament has-ornament--left"
+        id="quem-somos"
+        aria-labelledby="quem-somos-title"
+      >
+        <div class="container split" data-reveal>
+          <div>
+            <h2 id="quem-somos-title">Quem somos</h2>
+            <p>A OXE Táxi Aéreo nasceu da paixão pela aviação.</p>
+            <p>
+              Oferecemos atendimento próximo e voos personalizados, com profissionalismo e atenção aos
+              detalhes.
+            </p>
+          </div>
+          <div class="photo">
+            <img
+              src="images/about-tail-sunset-640.webp"
+              srcset="images/about-tail-sunset-640.webp 640w, images/about-tail-sunset-960.webp 960w"
+              sizes="(max-width: 800px) calc(100vw - 40px), 508px"
+              width="960"
+              height="1280"
+              alt="Deriva da aeronave com a logomarca da OXE ao entardecer"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           POR QUE VOAR COM A OXE? (#por-que)
+           ================================================================== -->
+      <section
+        class="section section--tint has-ornament has-ornament--right"
+        id="por-que"
+        aria-labelledby="por-que-title"
+      >
+        <div class="container" data-reveal>
+          <p class="eyebrow">A experiência OXE</p>
+          <h2 id="por-que-title">Por que voar com a OXE?</h2>
+          <div class="card-grid">
+            <article class="card">
+              <h3>Atendimento personalizado</h3>
+              <p>Contato direto com nossa equipe.</p>
+            </article>
+            <article class="card">
+              <h3>Flexibilidade</h3>
+              <p>Voos planejados conforme a sua necessidade.</p>
+            </article>
+            <article class="card">
+              <h3>Conforto</h3>
+              <p>Cabine executiva com assentos em couro.</p>
+            </article>
+            <article class="card">
+              <h3>Praticidade</h3>
+              <p>Mais tempo para o que importa.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           FROTA (#frota) — fundo azul-marinho; as fotos da galeria abrem
+           ampliadas ao clicar (initLightbox, em js/script.js)
+           ================================================================== -->
+      <section class="section fleet" id="frota" aria-labelledby="frota-title">
+        <div class="container" data-reveal>
+          <p class="eyebrow">Nossa aeronave</p>
+          <h2 id="frota-title">Seneca III</h2>
+          <p class="lead">
+            Bimotor com motores Continental turboalimentados, ideal para voos regionais com conforto.
+          </p>
+
+          <div class="specs">
+            <div class="specs__item">
+              <strong>319 km/h</strong>
+              <span>Velocidade de cruzeiro</span>
+            </div>
+            <div class="specs__item">
+              <strong>1.158 km</strong>
+              <span>Alcance de voo</span>
+            </div>
+            <div class="specs__item">
+              <strong>Até 4 passageiros</strong>
+              <span>Capacidade máxima</span>
+            </div>
+          </div>
+
+          <ul class="ticks">
+            <li>Modelo Seneca III (EMB-810D)</li>
+            <li>Interior com assentos em couro e mesa</li>
+          </ul>
+          <p class="note">Passageiros e bagagem dependem do peso de cada voo e das condições da operação.</p>
+
+          <div class="fleet-gallery" data-lightbox-gallery>
+            <button
+              class="fleet-gallery__item fleet-gallery__item--featured photo"
+              type="button"
+              aria-haspopup="dialog"
+              data-lightbox-item
+            >
+              <img
+                src="images/fleet-cabin-table-640.webp"
+                srcset="images/fleet-cabin-table-640.webp 640w, images/fleet-cabin-table-1280.webp 1280w"
+                sizes="(max-width: 800px) calc(100vw - 40px), 520px"
+                width="1280"
+                height="960"
+                alt="Interior da cabine com assentos em couro e mesa de madeira"
+                loading="lazy"
+              />
+            </button>
+            <button class="fleet-gallery__item photo" type="button" aria-haspopup="dialog" data-lightbox-item>
+              <img
+                src="images/fleet-apron-640.webp"
+                srcset="images/fleet-apron-640.webp 640w, images/fleet-apron-1280.webp 1280w"
+                sizes="(max-width: 800px) 50vw, 260px"
+                width="1280"
+                height="960"
+                alt="Seneca III PT-VAT no pátio"
+                loading="lazy"
+              />
+            </button>
+            <button class="fleet-gallery__item photo" type="button" aria-haspopup="dialog" data-lightbox-item>
+              <img
+                src="images/fleet-panel-sunset-640.webp"
+                srcset="images/fleet-panel-sunset-640.webp 640w, images/fleet-panel-sunset-960.webp 960w"
+                sizes="(max-width: 800px) 50vw, 260px"
+                width="960"
+                height="1280"
+                alt="Painel da aeronave em voo ao entardecer"
+                loading="lazy"
+              />
+            </button>
+            <button class="fleet-gallery__item photo" type="button" aria-haspopup="dialog" data-lightbox-item>
+              <img
+                src="images/fleet-cabin-seats-640.webp"
+                srcset="images/fleet-cabin-seats-640.webp 640w, images/fleet-cabin-seats-1280.webp 1280w"
+                sizes="(max-width: 800px) 50vw, 260px"
+                width="1280"
+                height="960"
+                alt="Cabine com assentos em couro"
+                loading="lazy"
+              />
+            </button>
+            <button class="fleet-gallery__item photo" type="button" aria-haspopup="dialog" data-lightbox-item>
+              <img
+                src="images/fleet-front-sunset-640.webp"
+                srcset="images/fleet-front-sunset-640.webp 640w, images/fleet-front-sunset-1280.webp 1280w"
+                sizes="(max-width: 800px) 50vw, 260px"
+                width="1280"
+                height="960"
+                alt="Vista frontal do Seneca III ao entardecer"
+                loading="lazy"
+              />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           TÁXI AÉREO EXECUTIVO (#executivo)
+           ================================================================== -->
+      <section
+        class="section section--tint has-ornament has-ornament--left"
+        id="executivo"
+        aria-labelledby="executivo-title"
+      >
+        <div class="container split" data-reveal>
+          <div class="photo">
+            <img
+              src="images/executive-orange-sky-640.webp"
+              srcset="images/executive-orange-sky-640.webp 640w, images/executive-orange-sky-960.webp 960w"
+              sizes="(max-width: 800px) calc(100vw - 40px), 508px"
+              width="960"
+              height="1280"
+              alt="Aeronave PT-VAT sob um céu alaranjado"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <h2 id="executivo-title">Táxi aéreo executivo</h2>
+            <p>Viaje de acordo com os seus compromissos e prioridades.</p>
+            <h3>Viagens corporativas</h3>
+            <p>Reuniões e viagens de negócios com mais flexibilidade.</p>
+            <h3>Viagens particulares</h3>
+            <p>Lazer e compromissos pessoais, do seu jeito.</p>
+            <p>Cada pedido é analisado individualmente.</p>
+            <a
+              class="btn"
+              href="https://wa.me/5582991166258?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20t%C3%A1xi%20a%C3%A9reo%20com%20a%20OXE.%20Poderiam%20me%20fornecer%20mais%20informa%C3%A7%C3%B5es%3F"
+              target="_blank"
+              rel="noopener"
+            >
+              Solicitar Cotação
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           ROTAS E DESTINOS (#destinos)
+           ================================================================== -->
+      <section
+        class="section has-ornament has-ornament--right"
+        id="destinos"
+        aria-labelledby="destinos-title"
+      >
+        <div class="container" data-reveal>
+          <h2 id="destinos-title">Rotas e destinos</h2>
+          <p class="lead">
+            Voos personalizados a partir de Maceió. Veja rotas já realizadas e consulte outras cidades.
+          </p>
+          <ul class="chips">
+            <li>Recife</li>
+            <li>João Pessoa</li>
+            <li>Natal</li>
+            <li>Fortaleza</li>
+            <li>Aracaju</li>
+            <li>Salvador</li>
+            <li>Feira de Santana</li>
+            <li>Ilhéus</li>
+            <li>Porto Seguro</li>
+            <li>Vitória da Conquista</li>
+            <li>Barreiras</li>
+            <li>Imperatriz</li>
+            <li>Petrolina</li>
+            <li>Juazeiro do Norte</li>
+            <li>Campina Grande</li>
+            <li>Caruaru</li>
+            <li>Garanhuns</li>
+            <li>Arapiraca</li>
+            <li>Serra Talhada</li>
+            <li>Cajazeiras</li>
+            <li>Araripina</li>
+            <li>Paulo Afonso</li>
+            <li>Patos</li>
+            <li class="chips__item--highlight">Outros destinos sob consulta</li>
+          </ul>
+          <p class="note">Rotas sujeitas a disponibilidade e condições do voo.</p>
+          <p>
+            <a
+              class="btn"
+              href="https://wa.me/5582991166258?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20t%C3%A1xi%20a%C3%A9reo%20com%20a%20OXE.%20Poderiam%20me%20fornecer%20mais%20informa%C3%A7%C3%B5es%3F"
+              target="_blank"
+              rel="noopener"
+            >
+              Solicitar Cotação
+            </a>
+          </p>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           SEGURANÇA (#seguranca)
+           ================================================================== -->
+      <section
+        class="section section--tint has-ornament has-ornament--left"
+        id="seguranca"
+        aria-labelledby="seguranca-title"
+      >
+        <div class="container split" data-reveal>
+          <div>
+            <h2 id="seguranca-title">Segurança e responsabilidade operacional</h2>
+            <p>
+              A segurança está presente em todas as etapas: planejamento do voo, acompanhamento do clima,
+              verificação da aeronave e cumprimento da regulamentação aeronáutica.
+            </p>
+            <p>Atuamos com a documentação e as autorizações aplicáveis.</p>
+          </div>
+          <div class="photo photo--short">
+            <img
+              src="images/safety-dusk-640.webp"
+              srcset="images/safety-dusk-640.webp 640w, images/safety-dusk-960.webp 960w"
+              sizes="(max-width: 800px) calc(100vw - 40px), 508px"
+              width="960"
+              height="1280"
+              alt="Aeronave PT-VAT ao anoitecer"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           GALERIA E INSTAGRAM (#galeria)
+           ================================================================== -->
+      <section class="section has-ornament has-ornament--right" id="galeria" aria-labelledby="galeria-title">
+        <div class="container" data-reveal>
+          <p class="eyebrow">Galeria e Instagram</p>
+          <h2 id="galeria-title">Acompanhe a OXE</h2>
+          <p class="lead">Bastidores, destinos e novidades dos nossos voos.</p>
+
+          <a
+            class="instagram-icon"
+            href="https://www.instagram.com/oxetaxiaereo/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram da OXE Táxi Aéreo"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4.2" />
+              <circle cx="17.3" cy="6.7" r=".6" fill="currentColor" />
+            </svg>
+          </a>
+
+          <div class="instagram-grid">
+            <a
+              class="instagram-grid__item"
+              href="https://www.instagram.com/oxetaxiaereo/"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="images/instagram-sunset-640.webp"
+                width="640"
+                height="853"
+                alt="Ver no Instagram: aeronave ao pôr do sol"
+                loading="lazy"
+              />
+            </a>
+            <a
+              class="instagram-grid__item"
+              href="https://www.instagram.com/oxetaxiaereo/"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="images/instagram-dusk-640.webp"
+                width="640"
+                height="853"
+                alt="Ver no Instagram: aeronave ao entardecer"
+                loading="lazy"
+              />
+            </a>
+            <a
+              class="instagram-grid__item"
+              href="https://www.instagram.com/oxetaxiaereo/"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="images/instagram-hangar-640.webp"
+                width="640"
+                height="480"
+                alt="Ver no Instagram: aeronave em frente ao hangar"
+                loading="lazy"
+              />
+            </a>
+            <a
+              class="instagram-grid__item"
+              href="https://www.instagram.com/oxetaxiaereo/"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="images/about-tail-sunset-640.webp"
+                width="640"
+                height="853"
+                alt="Ver no Instagram: logomarca na deriva da aeronave"
+                loading="lazy"
+              />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           PERGUNTAS FREQUENTES (#faq) — cada pergunta abre/fecha sozinha
+           (<details>), sem JavaScript
+           ================================================================== -->
+      <section
+        class="section section--tint has-ornament has-ornament--right"
+        id="faq"
+        aria-labelledby="faq-title"
+      >
+        <div class="container" data-reveal>
+          <p class="eyebrow">Dúvidas</p>
+          <h2 id="faq-title">Perguntas frequentes</h2>
+          <p class="lead">Para quem nunca contratou um táxi aéreo.</p>
+
+          <div class="faq">
+            <details class="faq__item">
+              <summary>Como funciona a contratação de um voo?</summary>
+              <p>
+                Entre em contato e informe origem, destino, data e número de passageiros. Nossa equipe avalia
+                e envia uma proposta.
+              </p>
+            </details>
+            <details class="faq__item">
+              <summary>Quantos passageiros podem embarcar?</summary>
+              <p>A capacidade é de até 4 passageiros, no Piper Seneca III (EMB-810D).</p>
+            </details>
+            <details class="faq__item">
+              <summary>Posso escolher o horário de partida?</summary>
+              <p>
+                Sim. Os horários são combinados com nossa equipe, conforme a disponibilidade da aeronave, o
+                clima e a segurança.
+              </p>
+            </details>
+            <details class="faq__item">
+              <summary>Como solicitar um orçamento?</summary>
+              <p>
+                Pelo WhatsApp: informe origem, destino, data e passageiros. Respondemos com uma proposta
+                personalizada.
+              </p>
+            </details>
+            <details class="faq__item">
+              <summary>Quais destinos são atendidos?</summary>
+              <p>
+                Nossa base é em Maceió, com embarque no Aeroclube de Alagoas. Atendemos destinos regionais e
+                nacionais: rotas já realizadas e novas cidades sob consulta.
+              </p>
+            </details>
+            <details class="faq__item">
+              <summary>Como funciona a bagagem?</summary>
+              <p>
+                São dois compartimentos (dianteiro e traseiro), de até 45 kg cada. O limite final depende do
+                número de passageiros, do peso e do combustível de cada voo. Informe a quantidade e o peso
+                aproximado das bagagens para confirmarmos.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           ONDE ESTAMOS (#onde-estamos) — local de embarque + Google Maps
+           ================================================================== -->
+      <section
+        class="section has-ornament has-ornament--left"
+        id="onde-estamos"
+        aria-labelledby="onde-estamos-title"
+      >
+        <div class="container split" data-reveal>
+          <div>
+            <p class="eyebrow">Onde estamos</p>
+            <h2 id="onde-estamos-title">Embarque no Aeroclube de Alagoas</h2>
+            <p class="lead">
+              Aeroclube de Alagoas, Maceió – AL
+              <br />
+              <small>Endereço da empresa: Rua Itararé, 10 – Santa Lúcia, Maceió – AL, 57082‑020</small>
+            </p>
+            <a
+              class="btn btn--outline"
+              href="https://www.google.com/maps/search/?api=1&query=Aeroclube+de+Alagoas%2C+Macei%C3%B3+-+AL"
+              target="_blank"
+              rel="noopener"
+            >
+              Abrir no Google Maps
+            </a>
+          </div>
+
+          <!-- Desenho decorativo de "mapa" (ruas brancas sobre fundo azul/verde). -->
+          <div class="map-card">
+            <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <path
+                d="M-10 190 C80 150 140 220 220 170 S360 120 420 160"
+                stroke="#fff"
+                stroke-width="14"
+                fill="none"
+              />
+              <path d="M60 -10 C90 70 70 140 130 270" stroke="#fff" stroke-width="10" fill="none" />
+              <path d="M250 -10 C260 60 320 100 300 270" stroke="#fff" stroke-width="10" fill="none" />
+            </svg>
+            <a
+              class="btn"
+              href="https://www.google.com/maps/search/?api=1&query=Aeroclube+de+Alagoas%2C+Macei%C3%B3+-+AL"
+              target="_blank"
+              rel="noopener"
+            >
+              Ver no mapa
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           FALE COM A OXE (#contato)
+           ================================================================== -->
+      <section
+        class="section section--tint has-ornament has-ornament--right"
+        id="contato"
+        aria-labelledby="contato-title"
+      >
+        <div class="container" data-reveal>
+          <h2 id="contato-title">Fale com a OXE</h2>
+          <p class="lead">
+            Conte seu destino e como deseja viajar. Respondemos com uma proposta personalizada.
+          </p>
+
+          <ul class="contact-list">
+            <li>
+              <strong>WhatsApp</strong>
+              <a
+                href="https://wa.me/5582991166258?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20t%C3%A1xi%20a%C3%A9reo%20com%20a%20OXE.%20Poderiam%20me%20fornecer%20mais%20informa%C3%A7%C3%B5es%3F"
+                target="_blank"
+                rel="noopener"
+              >
+                (82) 99116-6258
+              </a>
+            </li>
+            <li>
+              <strong>Telefone</strong>
+              <a href="tel:+5582991166258">(82) 99116-6258</a>
+            </li>
+            <li>
+              <strong>E-mail</strong>
+              <a href="mailto:oxetaxiaereo@gmail.com">oxetaxiaereo@gmail.com</a>
+            </li>
+            <li>
+              <strong>Instagram</strong>
+              <a href="https://www.instagram.com/oxetaxiaereo/" target="_blank" rel="noopener">
+                @oxetaxiaereo
+              </a>
+            </li>
+          </ul>
+
+          <a
+            class="btn"
+            href="https://wa.me/5582991166258?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20t%C3%A1xi%20a%C3%A9reo%20com%20a%20OXE.%20Poderiam%20me%20fornecer%20mais%20informa%C3%A7%C3%B5es%3F"
+            target="_blank"
+            rel="noopener"
+          >
+            Solicitar Cotação
+          </a>
+        </div>
+      </section>
     </main>
 
-    <!-- include: partials/footer.html -->
-    <!-- include: partials/whatsapp-float.html -->
-    <!-- include: partials/lightbox.html -->
+    <!-- ==================================================================
+         RODAPÉ — dados da empresa
+         ================================================================== -->
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        <img
+          class="site-footer__logo"
+          src="images/logo-560.webp"
+          srcset="images/logo-160.webp 160w, images/logo-560.webp 560w"
+          sizes="108px"
+          width="1071"
+          height="1067"
+          alt="OXE Táxi Aéreo"
+          loading="lazy"
+        />
+        <div>
+          <p>
+            <b>OXE Táxi Aéreo</b>
+            · Aviação executiva com atendimento personalizado.
+          </p>
+          <p>Razão social: OXE Táxi Aéreo LTDA · CNPJ 59.596.078/0001-63</p>
+          <p>Rua Itararé, 10 – Santa Lúcia, Maceió – AL, 57082‑020</p>
+          <p>WhatsApp: (82) 99116-6258 · oxetaxiaereo@gmail.com</p>
+          <p>
+            ©
+            <span data-current-year>2026</span>
+            OXE Táxi Aéreo. Todos os direitos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ==================================================================
+         BOTÃO FLUTUANTE DO WHATSAPP — some enquanto o formulário está na
+         tela (initWhatsappFloat, em js/script.js)
+         ================================================================== -->
+    <a
+      class="whatsapp-float"
+      href="https://wa.me/5582991166258?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20de%20t%C3%A1xi%20a%C3%A9reo%20com%20a%20OXE.%20Poderiam%20me%20fornecer%20mais%20informa%C3%A7%C3%B5es%3F"
+      target="_blank"
+      rel="noopener"
+      data-whatsapp-float
+    >
+      <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+        <path
+          d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.4.7 4.7 1.9 6.6L3 29l7.1-1.8c1.8 1 3.8 1.5 5.9 1.5 7 0 12.7-5.6 12.7-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.2 1.1 1.1-4-.3-.4a10 10 0 0 1-1.6-5.4C5.3 9.9 10.1 5.3 16 5.3s10.7 4.6 10.7 10.3S21.9 25.8 16 25.8zm5.9-7.5c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.5 8.5 0 0 1-4.2-3.7c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.5 1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.5 2.9 1.1 3.1.9 3.6.8.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5s-.3-.2-.6-.4z"
+        />
+      </svg>
+      <span class="whatsapp-float__label">Solicitar Cotação</span>
+      <span class="visually-hidden">pelo WhatsApp</span>
+    </a>
+
+    <!-- ==================================================================
+         FOTO AMPLIADA da galeria da frota — é um <dialog> (o navegador
+         cuida do Esc e do foco); quem abre: initLightbox, em js/script.js
+         ================================================================== -->
+    <dialog class="lightbox" aria-label="Foto ampliada" data-lightbox>
+      <figure class="lightbox__figure">
+        <img class="lightbox__image" src="data:," alt="" data-lightbox-image />
+        <figcaption class="lightbox__caption" data-lightbox-caption></figcaption>
+      </figure>
+
+      <button class="lightbox__button lightbox__button--close" type="button" data-lightbox-close>
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+        <span class="visually-hidden">Fechar</span>
+      </button>
+      <button class="lightbox__button lightbox__button--prev" type="button" data-lightbox-prev>
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+          <path
+            d="M15 5l-7 7 7 7"
+            stroke="currentColor"
+            stroke-width="2.2"
+            fill="none"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span class="visually-hidden">Foto anterior</span>
+      </button>
+      <button class="lightbox__button lightbox__button--next" type="button" data-lightbox-next>
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+          <path
+            d="M9 5l7 7-7 7"
+            stroke="currentColor"
+            stroke-width="2.2"
+            fill="none"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span class="visually-hidden">Próxima foto</span>
+      </button>
+    </dialog>
   </body>
 </html>
